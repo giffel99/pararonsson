@@ -1,37 +1,76 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { about, education, experience, skills, projects } from "@/data";
-import { Mail, Linkedin } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  about,
+  education,
+  experience,
+  skills,
+  projects,
+  navLinks,
+} from "@/data";
+import { useState } from "react";
+import { Mail, Linkedin, Menu, X } from "lucide-react";
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <main className="min-h-screen w-full bg-white text-gray-900">
       {/* Header */}
       <header className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur z-50 shadow-sm">
         <nav className="max-w-5xl mx-auto flex items-center justify-between p-4 text-sm font-medium">
           <div className="font-bold text-lg">Pär Aronsson</div>
-          <div className="flex gap-6">
-            <a href="#about" className="hover:underline">
-              About
-            </a>
-            <a href="#education" className="hover:underline">
-              Education
-            </a>
-            <a href="#experience" className="hover:underline">
-              Experience
-            </a>
-            <a href="#skills" className="hover:underline">
-              Skills
-            </a>
-            <a href="#projects" className="hover:underline">
-              Projects
-            </a>
-            <a href="#contact" className="hover:underline">
-              Contact
-            </a>
-          </div>
+
+          {/* Desktop Menu with framer-motion */}
+          <motion.div
+            className="hidden md:flex gap-6"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, staggerChildren: 0.1 }}
+          >
+            {navLinks.map((link) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                className="hover:underline"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {link.label}
+              </motion.a>
+            ))}
+          </motion.div>
+
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </nav>
+
+        {/* Mobile Menu with framer-motion */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden bg-white shadow-md"
+            >
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Hero Section */}
