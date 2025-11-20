@@ -178,8 +178,8 @@ export const projects = [
     link: "https://github.com/giffel99/metabolism_prediction",
   },
   {
-    title: "Simple Wordle made in C++",
+    title: "C++ projects. Hangman and Wordle In swedish.",
     image: "/wordle_cpp.png",
-    link: "https://github.com/giffel99/swedish_wordle_cpp",
+    link: "https://github.com/giffel99/cplusplus_projects",
   },
 ];
