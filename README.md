@@ -12,5 +12,5 @@ As of now visible at [pararonsson.se](pararonsson.se)
 
 # TODO
 - [X] Add education and experience information
-- [] Link to my CV
-- [] Add more styling
+- [ ] Link to my CV
+- [ ] Add more styling
